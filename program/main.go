@@ -47,7 +47,7 @@ func greeting(c echo.Context) error {
 }
 
 func getUser(c echo.Context) error {
-	var users []User
+	var users []User = []User{}
 	if err := DB.Find(&users).Error; err != nil {
 		fmt.Println(err)
 		return c.String(500, err.Error())
