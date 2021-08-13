@@ -50,6 +50,7 @@ func getUser(c echo.Context) error {
 	var users []User
 	if err := DB.Find(&users).Error; err != nil {
 		fmt.Println(err)
+		return c.String(500, err.Error())
 	}
 	return c.JSON(http.StatusOK, users)
 }
