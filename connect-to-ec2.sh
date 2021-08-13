@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ssh -i ~/Downloads/cicd.pem ubuntu@3.144.103.16
+ssh -i ~/Downloads/cicd.pem ubuntu@18.217.37.189
