@@ -44,7 +44,7 @@ func sayHi(c echo.Context) error {
 
 func greeting(c echo.Context) error {
 	name := c.Param("name")
-	return c.String(200, fmt.Sprintf("Hello %s", name))
+	return c.String(200, fmt.Sprintf("Hai %s", name))
 }
 
 func getUser(c echo.Context) error {
