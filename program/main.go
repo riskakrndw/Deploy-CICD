@@ -33,7 +33,8 @@ func main() {
 	e := echo.New()
 	e.GET("/", sayHi)
 	e.GET("/greeting/:name", greeting)
-	e.GET("/user", getUser)
+	e.GET("/:user", getOneUser)
+	e.GET("/allUser", getUser)
 	e.Start(port)
 }
 
@@ -49,6 +50,16 @@ func greeting(c echo.Context) error {
 func getUser(c echo.Context) error {
 	var users []User = []User{}
 	if err := DB.Find(&users).Error; err != nil {
+		fmt.Println(err)
+		return c.String(500, err.Error())
+	}
+	return c.JSON(http.StatusOK, users)
+}
+
+func getOneUser(c echo.Context) error {
+	userName := c.Param("user")
+	var users User
+	if err := DB.Find(&users, "Name=?", userName).Error; err != nil {
 		fmt.Println(err)
 		return c.String(500, err.Error())
 	}
