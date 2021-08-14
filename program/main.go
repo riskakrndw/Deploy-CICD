@@ -35,6 +35,7 @@ func main() {
 	e.GET("/greeting/:name", greeting)
 	e.GET("/:user", getOneUser)
 	e.GET("/allUser", getUser)
+	e.POST("/post", postName)
 	e.Start(port)
 }
 
@@ -64,4 +65,13 @@ func getOneUser(c echo.Context) error {
 		return c.String(500, err.Error())
 	}
 	return c.JSON(http.StatusOK, users)
+}
+
+func postName(c echo.Context) error {
+	name := User{}
+	c.Bind(&name)
+	if err := DB.Save(&name).Error; err != nil {
+		return c.String(500, err.Error())
+	}
+	return c.String(200, fmt.Sprintf("Hello %s", name.Name))
 }
